@@ -125,6 +125,22 @@ class PauseButton extends Button {
   onInterrupt() { this.animate(20); }
 }
 
+class Coin extends GameObject {
+  constructor(x, y) {
+    super(x, y, 65, 65);
+    this.velocity = new Vector2((150 - this.transform.position.x) / 100,
+    (40 - this.transform.position.y) / 100);
+    this.transform.position.x += this.velocity.x;
+  }
+  update() {
+    this.transform.position.x += this.velocity.x; this.transform.position.y += this.velocity.y;
+    this.transform.position.x = float2int(this.transform.position.x); this.transform.position.y = float2int(this.transform.position.y);
+    if(this.transform.position.x <= 150 & this.transform.position.y <= 40) { this.destroyed = true; objects[1].updateText(1); }
+    this.render();
+  }
+  render() { renderImage(images[12], this.transform, 2); }
+}
+
 class EnemyGenerator extends GameObject {
   constructor() { super(0, 0, 0, 0); this.c = 0; this.timeout = 3; }
   update() { if(pause) return; this.c++; if(this.c >= this.timeout * 60) { objects.push(new Bug()); this.c = 0; } }
@@ -151,6 +167,7 @@ class Enemy extends GameObject {
     this.health -= dmg; if(this.health <= 0) {
       this.destroyed = true; if(this.dead != null) this.dead();
       renderImage(blood[float2int(random() * blood.length)], new Vector4(this.transform.position.x, this.transform.position.y, this.transform.size.x, this.transform.size.x), 1);
+      if(random() * 100 <= 33) objects.push(new Coin(this.transform.position.x, this.transform.position.y));
     }
     this.dir = -0.05;
   }
