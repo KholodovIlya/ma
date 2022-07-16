@@ -61,7 +61,7 @@ class NumberButton extends Button {
 class Background extends GameObject { constructor() { super(540, 540, 1080, 1080); } update() { if(!pause) clearTransform(this.transform, 2); } }
 
 class ActiveButton extends Button {
-  constructor(x, cost, image, use) { super(x, 70, 140, 140); this.cost = cost; this.image = image; this.use = use; this.render(); }
+  constructor(x, cost, image, use, i) { super(x, 70, 140, 140); this.cost = cost; this.image = image; this.use = use; this.i = i; this.render(); }
 
   update() { if(!pause) super.update(); }
   animate(value) {
@@ -76,7 +76,7 @@ class ActiveButton extends Button {
 
   onPress() { this.animate(-20); }
   onRelease() { this.animate(20); if(money >= this.cost) { objects[1].updateText(-this.cost); this.use(); } }
-  onInterrupt() { this.animate(20); }
+  onInterrupt() { this.animate(20); if(this.i & money >= this.cost) { objects[1].updateText(-this.cost); this.use(); } }
 
   collision(other) { if(!pause) super.collision(other); }
 }
@@ -94,7 +94,7 @@ class Wall extends GameObject {
       this.transform.position.x = mouse.transform.position.x; this.transform.position.y = mouse.transform.position.y;
       if(this.transform.position.x > 1080 - this.transform.size.x / 2) this.transform.position.x = 1080 - this.transform.size.x / 2;
       if(this.transform.position.x < this.transform.size.x / 2) this.transform.position.x = this.transform.size.x / 2;
-      this.drag = !mouse.down;
+      this.drag = mouse.down;
     } else {
       if(!this.collide & this.health < this.maxHealth) this.health += 40;
       this.collide = false;
@@ -182,3 +182,4 @@ class Bug extends Enemy {
   }
   enemyUpdate() { this.transform.position.y += 1; }
 }
+
