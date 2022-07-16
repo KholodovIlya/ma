@@ -26,7 +26,7 @@ function game() {
   let position = new Vector2(1500, 560); let x = 540;
   for (let x = -1; x < 2; x++) { for (let y = -1; y < 2; y++) objects.push(new NumberButton(position.x + 180 * x, position.y + 180 * y, y * 3 + x + 5)); }
   objects.push(new NumberButton(position.x - 180, position.y + 360, "-")); objects.push(new NumberButton(position.x, position.y + 360, "0")); objects.push(new NumberButton(position.x + 180, position.y + 360, "<  "));
-  objects.push(new ActiveButton(x - 140, 1, images[5], () => objects[3].updateTask())); objects.push(new ActiveButton(x, 2, images[6], () => objects.push(new Wall()))); objects.push(new ActiveButton(x + 140, 3, images[7], () => damage(10)));
+  objects.push(new ActiveButton(x - 140, 1, images[5], () => objects[3].updateTask(), false)); objects.push(new ActiveButton(x, 2, images[6], () => objects.push(new Wall()), true)); objects.push(new ActiveButton(x + 140, 3, images[7], () => damage(10), false));
   renderImage(images[4], new Vector4(540, 540, 1080, 1080), 0); renderImage(images[0], new Vector4(1500, 540, 840, 1080), 0);
 }
 function clearScene() {
