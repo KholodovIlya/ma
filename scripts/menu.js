@@ -4,7 +4,7 @@ const blood = []; for (let i = 0; i < 1; i++) { blood.push(new Image()); blood[i
 
 let money = "money" in localStorage ? Number(localStorage.getItem("money")) : 0; let pause = false;
 function fillImages() {
-  for (let i = 0; i < 12; i++) images.push(new Image());
+  for (let i = 0; i < 13; i++) images.push(new Image());
   images[0].src = dir + "panel.png"; images[1].src = dir + "taskPanel.png";
   images[2].src = dir + "button.png";
   images[4].src = dir + "back.png";
@@ -13,6 +13,7 @@ function fillImages() {
   images[7].src = dir + "active/2.png";
   images[8].src = dir + "build.png";
   images[11].src = dir + "pause.png";
+  images[12].src = dir + "coin.png";
 }
 function menu() {
   objects.push(new MoneyText());renderImage(images[3], objects[1].transform, 3);
